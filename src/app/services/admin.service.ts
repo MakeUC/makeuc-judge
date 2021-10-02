@@ -41,8 +41,8 @@ export class AdminService {
     return this.http.get<Category[]>(`${this.BASE_URL}/category`);
   }
 
-  sendEmail(payload: SendEmailDto) {
-    return this.http.post<void>(`${this.BASE_URL}/judge/email`, payload);
+  sendEmail(id: string) {
+    return this.http.post<void>(`${this.BASE_URL}/judge/${id}/email`, {});
   }
 
   getProjects() {

@@ -13,8 +13,6 @@ import { SendEmailDto } from '../../../interfaces/email';
 export class SendEmailDialogComponent {
   state: 'READY' | 'PENDING' | 'DONE' = `READY`;
 
-  dryRun = new FormControl(true);
-
   constructor(
     @Inject(MAT_DIALOG_DATA) public judge: Judge,
     public ref: MatDialogRef<SendEmailDialogComponent>,
@@ -22,14 +20,9 @@ export class SendEmailDialogComponent {
   ) {}
 
   sendEmail() {
-    const payload: SendEmailDto = {
-      template: `postEmailJudgeEmail`,
-      recipent: this.judge.email,
-      dryRun: this.dryRun.value
-    };
     this.state = `PENDING`;
 
-    this.service.sendEmail(payload).subscribe(() => {
+    this.service.sendEmail(this.judge.id).subscribe(() => {
       this.state = `DONE`;
     });
   }
